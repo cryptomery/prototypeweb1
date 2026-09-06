@@ -1,0 +1,6 @@
+{
+  "name": "Kanzler eFootball League",
+  "description": "Portal resmi Kanzler eFootball League: jadwal pertandingan, klasemen grup, bracket fase knock out, statistik tim, dan panel administrasi liga.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
