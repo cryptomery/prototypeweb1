@@ -523,10 +523,11 @@ export function getLeagueTeams(): Team[] {
 
 /**
  * Get matches: checks admin_matches and admin_fixtures in localStorage.
- * Seamlessly merges any fixtures created in admin_fixtures into the match list.
+ * A new league deliberately starts with no matches; fixtures are created by an
+ * admin rather than falling back to the sample data bundled with the app.
  */
 export function getLeagueMatches(): MatchWithExtras[] {
-  if (typeof window === 'undefined') return defaultMatches;
+  if (typeof window === 'undefined') return [];
   try {
     const rawMatches = localStorage.getItem('admin_matches');
     const rawFixtures = localStorage.getItem('admin_fixtures');
@@ -534,13 +535,9 @@ export function getLeagueMatches(): MatchWithExtras[] {
     let matchesList: MatchWithExtras[] = [];
     if (rawMatches) {
       const parsed = JSON.parse(rawMatches);
-      if (Array.isArray(parsed) && parsed.length > 0) {
+      if (Array.isArray(parsed)) {
         matchesList = parsed;
       }
-    }
-
-    if (matchesList.length === 0) {
-      matchesList = [...defaultMatches];
     }
 
     // Merge any fixtures created via the Fixtures tab
@@ -571,7 +568,7 @@ export function getLeagueMatches(): MatchWithExtras[] {
 
     return matchesList;
   } catch {
-    return defaultMatches;
+    return [];
   }
 }
 
